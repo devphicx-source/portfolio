@@ -1,27 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand colors */
-  --bg-primary: #060B18;
-  --bg-secondary: #0C1425;
-  --bg-card: #111827;
-  --bg-card-hover: #1a2335;
+  /* ── Brand colors ── */
+  --bg-primary: #050505;
+  --bg-secondary: #0A0A0A;
+  --bg-card: #111111;
+  --bg-card-hover: #1a1a1a;
 
-  --accent: #3B82F6;
-  --accent-light: #60A5FA;
-  --accent-dark: #2563EB;
-  --accent-warm: #F59E0B;
-  --accent-purple: #8B5CF6;
+  --accent: #E8272C;
+  --accent-light: #FF4347;
+  --accent-dark: #C41E22;
+  --accent-warm: #FF6B35;
 
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
+  --text-primary: #F5F5F5;
+  --text-secondary: #A0A0A0;
+  --text-muted: #606060;
 
-  --border: rgba(148, 163, 184, 0.08);
-  --border-hover: rgba(59, 130, 246, 0.3);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(232, 39, 44, 0.35);
 
-  --glow-blue: rgba(59, 130, 246, 0.15);
-  --glow-purple: rgba(139, 92, 246, 0.15);
+  --glow-red: rgba(232, 39, 44, 0.15);
+  --glow-warm: rgba(255, 107, 53, 0.12);
 }
 
 @theme inline {
@@ -33,7 +32,6 @@
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
   --color-accent-warm: var(--accent-warm);
-  --color-accent-purple: var(--accent-purple);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
@@ -43,7 +41,7 @@
   --font-heading: var(--font-outfit);
 }
 
-/* Smooth scroll */
+/* ── Smooth scroll ── */
 html {
   scroll-behavior: smooth;
 }
@@ -65,7 +63,7 @@ body {
   }
 }
 
-/* Scrollbar */
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -75,7 +73,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-card);
+  background: #1a1a1a;
   border-radius: 3px;
 }
 
@@ -83,13 +81,13 @@ body {
   background: var(--accent);
 }
 
-/* Selection */
+/* ── Selection ── */
 ::selection {
-  background: rgba(59, 130, 246, 0.25);
+  background: rgba(232, 39, 44, 0.3);
   color: #ffffff;
 }
 
-/* Reduced motion */
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -101,10 +99,10 @@ body {
   }
 }
 
-/* Section consistent spacing */
+/* ── Section spacing ── */
 .section-padding {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 @media (min-width: 640px) {
@@ -114,33 +112,50 @@ body {
   }
 }
 
-/* Glass card utility */
+/* ── Glass card ── */
 .glass-card {
-  background: rgba(17, 24, 39, 0.6);
-  backdrop-filter: blur(12px);
+  background: rgba(17, 17, 17, 0.7);
+  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 1.25rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
   border-color: var(--border-hover);
-  background: rgba(17, 24, 39, 0.8);
+  background: rgba(20, 20, 20, 0.85);
+  box-shadow: 0 0 40px rgba(232, 39, 44, 0.06);
 }
 
-/* Gradient text utility */
+/* ── Bento card ── */
+.bento-card {
+  background: rgba(17, 17, 17, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bento-card:hover {
+  border-color: rgba(232, 39, 44, 0.2);
+  box-shadow: 0 0 30px rgba(232, 39, 44, 0.05);
+}
+
+/* ── Gradient text ── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Heading font utility */
+/* ── Heading font ── */
 .font-heading {
   font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
 }
 
-/* Glow button */
+/* ── Primary button ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -151,34 +166,78 @@ body {
   font-weight: 600;
   font-size: 0.9375rem;
   border-radius: 0.75rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
 }
 
 .btn-primary:hover {
   background: var(--accent-light);
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 0 40px rgba(232, 39, 44, 0.4), 0 0 80px rgba(232, 39, 44, 0.15);
   transform: translateY(-2px);
 }
 
+/* ── Secondary button ── */
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 2rem;
-  background: rgba(59, 130, 246, 0.08);
+  background: rgba(232, 39, 44, 0.08);
   color: var(--accent-light);
   font-weight: 600;
   font-size: 0.9375rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(232, 39, 44, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
 }
 
 .btn-secondary:hover {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(232, 39, 44, 0.15);
+  border-color: rgba(232, 39, 44, 0.4);
   transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(232, 39, 44, 0.15);
+}
+
+/* ── Red glow ── */
+.glow-red {
+  box-shadow: 0 0 60px rgba(232, 39, 44, 0.12), 0 0 120px rgba(232, 39, 44, 0.06);
+}
+
+/* ── Tag/pill utility ── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  background: rgba(232, 39, 44, 0.1);
+  color: var(--accent-light);
+  border: 1px solid rgba(232, 39, 44, 0.2);
+}
+
+/* ── Horizontal line divider ── */
+.divider-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  opacity: 0.2;
 }

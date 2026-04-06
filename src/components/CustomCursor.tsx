@@ -1,7 +1,7 @@
 "use client";
 
 import { useMousePosition } from "@/hooks/useMousePosition";
-import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 import { useEffect, useState, useRef, useCallback } from "react";
 
 export default function CustomCursor() {
@@ -21,7 +21,6 @@ export default function CustomCursor() {
   const dotY = useSpring(useMotionValue(0), { stiffness: 800, damping: 40, mass: 0.2 });
 
   const attachListeners = useCallback(() => {
-    // Clean up previous listeners
     cleanupRef.current.forEach((fn) => fn());
     cleanupRef.current = [];
 
@@ -88,16 +87,15 @@ export default function CustomCursor() {
   }, [attachListeners]);
 
   useEffect(() => {
-    // Offset for centering
     const dotOffset = 4;
     const ringOffset = cursorType === "pointer" ? 24 : 14;
 
     dotX.set(x - dotOffset);
     dotY.set(y - dotOffset);
-    
+
     ringX.set(x - (isClicking ? 10 : ringOffset));
     ringY.set(y - (isClicking ? 10 : ringOffset));
-    ringSize.set(isClicking ? 20 : (cursorType === "pointer" ? 48 : 28));
+    ringSize.set(isClicking ? 20 : cursorType === "pointer" ? 48 : 28);
   }, [x, y, cursorType, isClicking, dotX, dotY, ringX, ringY, ringSize]);
 
   if (isTouchDevice) return null;
@@ -116,7 +114,7 @@ export default function CustomCursor() {
         }}
         transition={{ type: "spring", stiffness: 150, damping: 20 }}
       />
-      
+
       {/* Inner Dot */}
       <motion.div
         className="fixed top-0 left-0 h-2 w-2 rounded-full bg-accent-light mix-blend-difference"
@@ -136,7 +134,7 @@ export default function CustomCursor() {
         style={{
           x: x - 80,
           y: y - 80,
-          background: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(232,39,44,0.12) 0%, transparent 70%)",
           opacity: isVisible ? 1 : 0,
           pointerEvents: "none",
         }}

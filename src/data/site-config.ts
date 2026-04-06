@@ -21,6 +21,7 @@ export const siteConfig = {
     { value: "98%", label: "Client Satisfaction" },
   ],
   navLinks: [
+    { label: "Home", href: "#home" },
     { label: "Services", href: "#services" },
     { label: "Work", href: "#work" },
     { label: "Testimonials", href: "#testimonials" },

@@ -15,27 +15,25 @@ export const contentType = "image/png";
 export default function Icon() {
   return new ImageResponse(
     (
-      // ImageResponse JSX element
       <div
         style={{
           fontSize: 22,
-          background: "#0B1126", // Matching your navy theme
+          background: "#050505",
           width: "100%",
           height: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#3B82F6", // Brand Blue
+          color: "#E8272C",
           borderRadius: "6px",
           fontWeight: "bold",
           fontFamily: "sans-serif",
-          border: "1px solid rgba(59, 130, 246, 0.3)",
+          border: "1px solid rgba(232, 39, 44, 0.4)",
         }}
       >
         D
       </div>
     ),
-    // ImageResponse options
     {
       ...size,
     }

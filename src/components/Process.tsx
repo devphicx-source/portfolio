@@ -39,12 +39,13 @@ export default function Process() {
   return (
     <section id="process" className="section-padding relative z-10">
       <div className="mx-auto max-w-[1200px] px-6">
+        {/* Divider glow */}
+        <div className="divider-glow mx-auto mb-16 max-w-[200px]" />
+
         <ScrollReveal>
           <div className="mx-auto max-w-[600px] text-center">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-              How We Work
-            </h2>
-            <h3 className="font-heading mb-4 text-3xl font-bold sm:text-4xl">
+            <span className="tag-pill mb-4 inline-flex">How We Work</span>
+            <h3 className="font-heading mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
               A Simple,{" "}
               <span className="gradient-text">Proven Process</span>
             </h3>
@@ -57,7 +58,11 @@ export default function Process() {
 
         <div className="relative mt-16">
           {/* Connecting line */}
-          <div className="absolute top-0 bottom-0 left-[29px] hidden w-px bg-gradient-to-b from-accent/30 via-accent-purple/30 to-transparent sm:block" />
+          <div className="absolute top-0 bottom-0 left-[29px] hidden w-px sm:block"
+            style={{
+              background: "linear-gradient(to bottom, rgba(232,39,44,0.3) 0%, rgba(255,107,53,0.2) 60%, transparent 100%)",
+            }}
+          />
 
           <div className="grid gap-8 sm:gap-12">
             {steps.map((step, idx) => {
@@ -71,19 +76,20 @@ export default function Process() {
                   >
                     {/* Step icon */}
                     <div className="relative shrink-0">
-                      <div className="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-bg-card border border-border transition-all duration-300 group-hover:border-accent/30 group-hover:bg-accent/10">
+                      <div className="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-bg-card border border-border transition-all duration-300 group-hover:border-accent/30 group-hover:bg-accent/10 group-hover:shadow-[0_0_25px_rgba(232,39,44,0.12)]">
                         <Icon
                           size={24}
                           className="text-text-muted transition-colors group-hover:text-accent"
                         />
                       </div>
+                      {/* Step number badge */}
+                      <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white">
+                        {step.number}
+                      </div>
                     </div>
 
                     {/* Content */}
                     <div className="pt-1">
-                      <div className="mb-1 text-xs font-bold uppercase tracking-widest text-accent">
-                        Step {step.number}
-                      </div>
                       <h4 className="font-heading mb-2 text-xl font-bold text-text-primary">
                         {step.title}
                       </h4>

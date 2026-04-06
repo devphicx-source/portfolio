@@ -4,21 +4,19 @@ import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 import Image from "next/image";
 import { projects } from "@/data/projects";
-import { ExternalLink, TrendingUp } from "lucide-react";
+import { ExternalLink, TrendingUp, ArrowUpRight } from "lucide-react";
 
 export default function Projects() {
-  const featured = projects.filter((p) => p.featured);
-  const others = projects.filter((p) => !p.featured);
-
   return (
     <section id="work" className="section-padding relative z-10">
       <div className="mx-auto max-w-[1200px] px-6">
+        {/* Divider glow */}
+        <div className="divider-glow mx-auto mb-16 max-w-[200px]" />
+
         <ScrollReveal>
           <div className="mx-auto max-w-[600px] text-center">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-              Our Work
-            </h2>
-            <h3 className="font-heading mb-4 text-3xl font-bold sm:text-4xl">
+            <span className="tag-pill mb-4 inline-flex">Our Work</span>
+            <h3 className="font-heading mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
               Real Projects,{" "}
               <span className="gradient-text">Real Results</span>
             </h3>
@@ -29,134 +27,103 @@ export default function Projects() {
           </div>
         </ScrollReveal>
 
-        {/* Featured projects — larger cards */}
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          {featured.map((project, idx) => (
-            <ScrollReveal key={project.title} delay={idx * 0.12}>
-              <motion.div
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="glass-card group overflow-hidden transition-all duration-300"
-                data-cursor-hover
+        {/* Bento project grid */}
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, idx) => {
+            // First 2 projects span wider on large screens
+            const isLarge = idx < 2;
+            return (
+              <ScrollReveal
+                key={project.title}
+                delay={idx * 0.1}
+                className={isLarge ? "lg:col-span-1 sm:col-span-1" : ""}
               >
-                {/* Image */}
-                <div className="relative h-52 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/30 to-transparent" />
-
-                  {/* Industry badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="rounded-full bg-bg-primary/80 px-3 py-1 text-xs font-medium text-accent-light backdrop-blur-sm">
-                      {project.industry}
-                    </span>
-                  </div>
-
-                  {/* Live link */}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-accent/20 text-accent-light opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-accent/40 group-hover:opacity-100"
-                      aria-label={`View ${project.title} live`}
-                    >
-                      <ExternalLink size={14} />
-                    </a>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <div className="mb-1 text-xs font-medium text-text-muted">
-                    {project.client}
-                  </div>
-                  <h4 className="font-heading mb-2 text-lg font-bold text-text-primary">
-                    {project.title}
-                  </h4>
-                  <p className="mb-4 text-sm leading-relaxed text-text-secondary">
-                    {project.description}
-                  </p>
-
-                  {/* Metrics strip */}
-                  <div className="flex gap-4 border-t border-border pt-4">
-                    {project.metrics.map((metric) => (
-                      <div key={metric.label} className="text-center">
-                        <div className="flex items-center justify-center gap-1 text-sm font-bold text-green-400">
-                          <TrendingUp size={12} />
-                          {metric.value}
-                        </div>
-                        <div className="text-xs text-text-muted">
-                          {metric.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* Other projects — compact grid */}
-        {others.length > 0 && (
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {others.map((project, idx) => (
-              <ScrollReveal key={project.title} delay={idx * 0.1}>
                 <motion.div
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.3 }}
-                  className="glass-card group overflow-hidden transition-all duration-300"
+                  whileHover={{ y: -6 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="glass-card group h-full overflow-hidden transition-all duration-300"
                   data-cursor-hover
                 >
-                  <div className="relative h-44 overflow-hidden">
+                  {/* Image */}
+                  <div className="relative h-52 overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/20 to-transparent" />
-                    <div className="absolute top-3 left-3">
-                      <span className="rounded-full bg-bg-primary/80 px-2.5 py-0.5 text-xs font-medium text-accent-light backdrop-blur-sm">
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/40 to-transparent" />
+
+                    {/* Red accent line on hover */}
+                    <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-accent to-accent-warm transition-all duration-500 group-hover:w-full" />
+
+                    {/* Industry badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="rounded-full bg-bg-primary/80 px-3 py-1 text-xs font-medium text-accent-light backdrop-blur-sm border border-accent/10">
                         {project.industry}
                       </span>
                     </div>
+
+                    {/* Live link */}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-accent/20 text-accent-light opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-accent/40 group-hover:opacity-100"
+                        aria-label={`View ${project.title} live`}
+                      >
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
                   </div>
 
-                  <div className="p-5">
+                  {/* Content */}
+                  <div className="p-6">
                     <div className="mb-1 text-xs font-medium text-text-muted">
                       {project.client}
                     </div>
-                    <h4 className="font-heading mb-2 text-base font-bold text-text-primary">
+                    <h4 className="font-heading mb-2 text-lg font-bold text-text-primary">
                       {project.title}
                     </h4>
-                    <p className="mb-3 text-sm leading-relaxed text-text-secondary line-clamp-2">
+                    <p className="mb-4 text-sm leading-relaxed text-text-secondary line-clamp-2">
                       {project.description}
                     </p>
 
-                    <div className="flex gap-3 border-t border-border pt-3">
-                      {project.metrics.slice(0, 2).map((metric) => (
-                        <div key={metric.label}>
-                          <span className="text-xs font-bold text-green-400">
+                    {/* Metrics strip */}
+                    <div className="flex gap-4 border-t border-border pt-4">
+                      {project.metrics.slice(0, 3).map((metric) => (
+                        <div key={metric.label} className="text-center">
+                          <div className="flex items-center justify-center gap-1 text-sm font-bold text-accent">
+                            <TrendingUp size={12} />
                             {metric.value}
-                          </span>
-                          <span className="ml-1 text-xs text-text-muted">
+                          </div>
+                          <div className="text-xs text-text-muted">
                             {metric.label}
-                          </span>
+                          </div>
                         </div>
                       ))}
                     </div>
+
+                    {/* View project link */}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 flex items-center gap-1.5 text-sm font-medium text-accent opacity-0 transition-all duration-300 group-hover:opacity-100"
+                      >
+                        View Project <ArrowUpRight size={14} />
+                      </a>
+                    )}
                   </div>
                 </motion.div>
               </ScrollReveal>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

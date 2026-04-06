@@ -1,7 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { siteConfig } from "@/data/site-config";
-import { Code2, Briefcase, Globe, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
+import Image from "next/image";
 
 const socialIcons = [
   {
@@ -42,16 +44,58 @@ const socialIcons = [
   },
 ];
 
-import Image from "next/image";
-
 export default function Footer() {
   const handleClick = (href: string) => {
+    if (href === "#home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <footer className="relative z-10 border-t border-border">
+    <footer className="relative z-10 overflow-hidden border-t border-border">
+      {/* ─── FOOTER JELLYFISH — Right Side Accent ─── */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5, delay: 0.2 }}
+        className="pointer-events-none absolute -top-20 right-0 z-[1] hidden lg:block"
+        style={{ mixBlendMode: "screen" }}
+      >
+        <motion.div
+          animate={{ y: [-12, 12, -12], rotate: [-2, 2, -2] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <Image
+            src="/jellyfish-side.png"
+            alt=""
+            width={400}
+            height={400}
+            className="h-auto w-[320px] object-contain"
+            style={{
+              opacity: 0.6,
+              filter: "drop-shadow(0 0 50px rgba(232,39,44,0.3)) drop-shadow(0 0 100px rgba(232,39,44,0.12))",
+              maskImage:
+                "radial-gradient(ellipse 90% 90% at center, black 40%, transparent 75%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 90% 90% at center, black 40%, transparent 75%)",
+            }}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Red glow at top of footer */}
+      <div
+        className="pointer-events-none absolute -top-20 left-1/2 h-40 w-[400px] -translate-x-1/2 rounded-full opacity-[0.06]"
+        style={{
+          background: "radial-gradient(circle, rgba(232,39,44,0.4) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
       <div className="mx-auto max-w-[1200px] px-6 py-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -146,7 +190,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-bg-card text-text-muted transition-all duration-300 hover:bg-accent/10 hover:text-accent"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl bg-bg-card text-text-muted transition-all duration-300 hover:bg-accent/10 hover:text-accent"
                       data-cursor-hover
                     >
                       <Icon />
@@ -169,9 +213,9 @@ export default function Footer() {
               <span className="text-xs text-text-muted hover:text-accent cursor-pointer transition-colors">Terms of Service</span>
             </div>
           </div>
-          
+
           <div className="flex items-center justify-center gap-1.5 text-sm text-text-muted mt-6 opacity-60">
-            Built with <Heart size={12} className="text-red-400 fill-red-400" /> in India
+            Built with <Heart size={12} className="text-accent fill-accent" /> in India
           </div>
         </div>
       </div>

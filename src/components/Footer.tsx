@@ -62,7 +62,7 @@ export default function Footer() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 0.2 }}
-        className="pointer-events-none absolute -top-20 right-0 z-[1] hidden lg:block"
+        className="pointer-events-none absolute -top-10 right-0 z-[1] sm:-top-16 lg:-top-20"
         style={{ mixBlendMode: "screen" }}
       >
         <motion.div
@@ -74,9 +74,9 @@ export default function Footer() {
             alt=""
             width={400}
             height={400}
-            className="h-auto w-[320px] object-contain"
+            className="h-auto w-[140px] object-contain sm:w-[200px] lg:w-[320px]"
             style={{
-              opacity: 0.6,
+              opacity: 0.45,
               filter: "drop-shadow(0 0 50px rgba(232,39,44,0.3)) drop-shadow(0 0 100px rgba(232,39,44,0.12))",
               maskImage:
                 "radial-gradient(ellipse 90% 90% at center, black 40%, transparent 75%)",

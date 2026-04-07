@@ -106,6 +106,7 @@ export default function Hero() {
               height={750}
               className="h-auto w-[280px] object-contain opacity-70 sm:w-[400px] sm:opacity-80 lg:w-[700px]"
               style={{
+                mixBlendMode: "screen",
                 filter: "drop-shadow(0 0 60px rgba(232,39,44,0.3)) drop-shadow(0 0 120px rgba(232,39,44,0.15))",
                 maskImage: "radial-gradient(ellipse 85% 85% at center, black 40%, transparent 75%)",
                 WebkitMaskImage: "radial-gradient(ellipse 85% 85% at center, black 40%, transparent 75%)",

@@ -56,8 +56,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <body className="min-h-screen bg-bg-primary text-text-primary antialiased selection:bg-accent/30 selection:text-white">
-        {/* Subtle noise texture overlay */}
-        <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.025] mix-blend-overlay">
+        {/* Subtle noise texture overlay — hidden on mobile for performance */}
+        <div className="pointer-events-none fixed inset-0 z-[100] hidden opacity-[0.025] mix-blend-overlay md:block">
           <svg className="h-full w-full">
             <filter id="noiseFilter">
               <feTurbulence
@@ -71,9 +71,9 @@ export default function RootLayout({
           </svg>
         </div>
 
-        {/* Subtle dot grid overlay */}
+        {/* Subtle dot grid overlay — hidden on mobile for performance */}
         <div
-          className="pointer-events-none fixed inset-0 z-[1] opacity-[0.015]"
+          className="pointer-events-none fixed inset-0 z-[1] hidden opacity-[0.015] md:block"
           style={{
             backgroundImage:
               "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",

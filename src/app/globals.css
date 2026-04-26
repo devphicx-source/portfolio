@@ -44,6 +44,7 @@
 /* ── Smooth scroll ── */
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -115,10 +116,16 @@ body {
 /* ── Glass card ── */
 .glass-card {
   background: rgba(17, 17, 17, 0.7);
-  backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Backdrop blur only on non-mobile for performance */
+@media (min-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(16px);
+  }
 }
 
 .glass-card:hover {
@@ -130,11 +137,16 @@ body {
 /* ── Bento card ── */
 .bento-card {
   background: rgba(17, 17, 17, 0.6);
-  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 1.25rem;
   padding: 1.5rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .bento-card {
+    backdrop-filter: blur(12px);
+  }
 }
 
 .bento-card:hover {
@@ -240,4 +252,88 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
   opacity: 0.2;
+}
+
+/* ────────────────────────────────────────────── */
+/* ── Hero Jellyfish — Black edge fix + float ── */
+/* ────────────────────────────────────────────── */
+
+.jellyfish-hero {
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 60px rgba(232,39,44,0.3)) drop-shadow(0 0 120px rgba(232,39,44,0.15));
+  mask-image: radial-gradient(ellipse 85% 85% at center, black 40%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at center, black 40%, transparent 75%);
+}
+
+/* On mobile: use a tighter mask to completely hide the black PNG edges */
+@media (max-width: 639px) {
+  .jellyfish-hero {
+    opacity: 0.65;
+    mask-image: radial-gradient(ellipse 70% 70% at center, black 25%, transparent 60%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at center, black 25%, transparent 60%);
+    filter: drop-shadow(0 0 40px rgba(232,39,44,0.4)) drop-shadow(0 0 80px rgba(232,39,44,0.2));
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .jellyfish-hero {
+    opacity: 0.8;
+  }
+}
+
+/* Float animation using CSS for GPU compositing — no JS re-renders */
+.jellyfish-float {
+  animation: jellyfishFloat 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes jellyfishFloat {
+  0%, 100% { transform: translateY(-10px); }
+  50% { transform: translateY(10px); }
+}
+
+/* ──────────────────────────────────── */
+/* ── Background orb CSS animations ── */
+/* ──────────────────────────────────── */
+
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(80px, 40px); }
+  50% { transform: translate(40px, 80px); }
+  75% { transform: translate(0, 0); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-60px, 60px); }
+  50% { transform: translate(-30px, -20px); }
+  75% { transform: translate(0, 0); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(50px, -50px); }
+  50% { transform: translate(-30px, 30px); }
+  75% { transform: translate(0, 0); }
+}
+
+/* ──────────────────────────────────── */
+/* ── Mobile performance overrides  ── */
+/* ──────────────────────────────────── */
+
+@media (max-width: 767px) {
+  /* Disable hover transforms on touch devices — prevents "sticky hover" bug */
+  .glass-card:hover,
+  .bento-card:hover {
+    transform: none;
+  }
+
+  /* Lighter backgrounds without blur for cards */
+  .glass-card {
+    background: rgba(17, 17, 17, 0.85);
+  }
+
+  .bento-card {
+    background: rgba(17, 17, 17, 0.75);
+  }
 }

@@ -74,15 +74,7 @@ export default function Footer() {
             alt=""
             width={400}
             height={400}
-            className="h-auto w-[140px] object-contain sm:w-[200px] lg:w-[320px]"
-            style={{
-              opacity: 0.45,
-              filter: "drop-shadow(0 0 50px rgba(232,39,44,0.3)) drop-shadow(0 0 100px rgba(232,39,44,0.12))",
-              maskImage:
-                "radial-gradient(ellipse 90% 90% at center, black 40%, transparent 75%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 90% 90% at center, black 40%, transparent 75%)",
-            }}
+            className="jellyfish-hero h-auto w-[140px] object-contain sm:w-[200px] lg:w-[320px]"
           />
         </motion.div>
       </motion.div>

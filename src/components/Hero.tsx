@@ -15,8 +15,8 @@ const container = {
 } as const;
 
 const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } },
 } as const;
 
 const socialLinks = [
@@ -68,7 +68,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0">
         {/* Primary center glow — behind jellyfish */}
         <div
-          className="absolute top-1/3 left-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          className="absolute top-1/3 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full sm:h-[900px] sm:w-[900px]"
           style={{
             background:
               "radial-gradient(circle, rgba(232,39,44,0.2) 0%, rgba(232,39,44,0.05) 40%, transparent 65%)",
@@ -77,7 +77,7 @@ export default function Hero() {
         />
         {/* Secondary warm glow — bottom right */}
         <div
-          className="absolute -right-1/4 bottom-1/4 h-[500px] w-[500px] rounded-full opacity-[0.08]"
+          className="absolute -right-1/4 bottom-1/4 hidden h-[500px] w-[500px] rounded-full opacity-[0.08] sm:block"
           style={{
             background:
               "radial-gradient(circle, rgba(255,107,53,0.3) 0%, transparent 65%)",
@@ -89,31 +89,22 @@ export default function Hero() {
       {/* ─── MAIN JELLYFISH — Dramatic Center Piece ─── */}
       <div className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 40 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
           className="relative translate-x-[15%] sm:translate-x-[10%] lg:translate-x-0"
         >
-          {/* Floating animation */}
-          <motion.div
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          >
+          {/* Floating animation — CSS-driven for mobile performance */}
+          <div className="jellyfish-float">
             <Image
               src="/jellyfish-main.png"
               alt="Glowing red jellyfish"
               width={750}
               height={750}
-              className="h-auto w-[280px] object-contain opacity-70 sm:w-[400px] sm:opacity-80 lg:w-[700px]"
-              style={{
-                mixBlendMode: "screen",
-                filter: "drop-shadow(0 0 60px rgba(232,39,44,0.3)) drop-shadow(0 0 120px rgba(232,39,44,0.15))",
-                maskImage: "radial-gradient(ellipse 85% 85% at center, black 40%, transparent 75%)",
-                WebkitMaskImage: "radial-gradient(ellipse 85% 85% at center, black 40%, transparent 75%)",
-              }}
+              className="jellyfish-hero h-auto w-[280px] object-contain sm:w-[400px] lg:w-[700px]"
               priority
             />
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 

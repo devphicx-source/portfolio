@@ -1,62 +1,70 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function BackgroundEffects() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // On mobile: use simple static gradients instead of animated blurred orbs
+  // This eliminates the heavy GPU repaints that cause jank
+  if (isMobile) {
+    return (
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div
+          className="absolute -top-1/4 -left-1/4 h-[400px] w-[400px] rounded-full opacity-[0.06]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(232,39,44,0.25) 0%, transparent 65%)",
+          }}
+        />
+        <div
+          className="absolute -right-1/4 top-1/3 h-[300px] w-[300px] rounded-full opacity-[0.04]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255,107,53,0.2) 0%, transparent 65%)",
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {/* Primary crimson orb */}
-      <motion.div
-        className="absolute -top-1/4 -left-1/4 h-[700px] w-[700px] rounded-full opacity-[0.08]"
+      {/* Primary crimson orb — use CSS animation instead of framer-motion for GPU compositing */}
+      <div
+        className="absolute -top-1/4 -left-1/4 h-[700px] w-[700px] rounded-full opacity-[0.08] will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(232,39,44,0.35) 0%, transparent 65%)",
           filter: "blur(100px)",
-        }}
-        animate={{
-          x: [0, 80, 40, 0],
-          y: [0, 40, 80, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear",
+          animation: "floatOrb1 25s linear infinite",
         }}
       />
       {/* Warm orange orb */}
-      <motion.div
-        className="absolute -right-1/4 top-1/3 h-[500px] w-[500px] rounded-full opacity-[0.06]"
+      <div
+        className="absolute -right-1/4 top-1/3 h-[500px] w-[500px] rounded-full opacity-[0.06] will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(255,107,53,0.3) 0%, transparent 65%)",
           filter: "blur(90px)",
-        }}
-        animate={{
-          x: [0, -60, -30, 0],
-          y: [0, 60, -20, 0],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
+          animation: "floatOrb2 30s linear infinite",
         }}
       />
       {/* Bottom red bleed */}
-      <motion.div
-        className="absolute -bottom-1/4 left-1/3 h-[400px] w-[400px] rounded-full opacity-[0.05]"
+      <div
+        className="absolute -bottom-1/4 left-1/3 h-[400px] w-[400px] rounded-full opacity-[0.05] will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(232,39,44,0.25) 0%, transparent 70%)",
           filter: "blur(80px)",
-        }}
-        animate={{
-          x: [0, 50, -30, 0],
-          y: [0, -50, 30, 0],
-        }}
-        transition={{
-          duration: 35,
-          repeat: Infinity,
-          ease: "linear",
+          animation: "floatOrb3 35s linear infinite",
         }}
       />
 
